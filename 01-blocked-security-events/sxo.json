@@ -1,0 +1,591 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_0224B6S39JIWO6q01ISePDCXP9hSvOT54xS",
+    "name": "Alert for Security Blocked Event",
+    "title": "Alert for Security Blocked Event",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "AccessToken",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_0224DPUSWAD304Rw0R06XYWyaYtcJ6afHNE",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "Blocked Security Event",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_0239CZUCZPMFQ0NlRpb6cbQqLRld2wopZEW",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "-1days",
+          "scope": "input",
+          "name": "From",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_0224C5UOFN1HK5lbSBnwYMXkQZxQUTDjMRb",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "now",
+          "scope": "input",
+          "name": "To",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_0224C60WOMUYR4QolvA1mju855pbY9AZlpH",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "QueryResponse",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_0224C8YVOGBXI2FD6To1CJBaQFfKTZAlAhm",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "Python_HTML_output",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_023A7D31LUV802eP0KjzK2S4OPJ3hKr4XBz",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "1000",
+          "scope": "input",
+          "name": "Limit",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_0224C66LTXUAC1qskei0SfVuPXFmofVHkPa",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "is_atomic": false
+      },
+      "delete_workflow_instance": false,
+      "display_name": "Alert for Security Blocked Event",
+      "runtime_user": {
+        "target_default": true
+      },
+      "target": {
+        "no_target": true
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_0224DQOXN7NZ32ttP3CbZspXC3TAtCGkf64",
+        "name": "HTTP Request",
+        "title": "Reporting API Access Token",
+        "type": "web-service.http_request",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "allow_auto_redirect": true,
+          "allow_headers_redirect": true,
+          "content_type": "application/json",
+          "continue_on_error_status_code": false,
+          "continue_on_failure": false,
+          "display_name": "Reporting API Access Token",
+          "method": "POST",
+          "relative_url": "/auth/v2/token",
+          "runtime_user": {
+            "override_target_runtime_user": true,
+            "runtime_user_id": "definition_runtime_user_0239BJ6TG1QS80O4hSgOc0m4h7mOKOwZ50y"
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_0222PMSZJHSXL2DrLcZAKjeTrwSCbpW9U3Z"
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_023A817M2SWPC6AqN4g5MyDoLx3aUnaxjZ8",
+        "name": "Condition Block",
+        "title": "Fetch Access Token",
+        "type": "logic.if_else",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Fetch Access Token",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_023A817MELVTU2orDYDsaObZA6TWQnGGE1M",
+            "name": "Condition Branch",
+            "title": "Response 200",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_0224DQOXN7NZ32ttP3CbZspXC3TAtCGkf64.output.status_code$",
+                "operator": "eq",
+                "right_operand": 200
+              },
+              "continue_on_failure": false,
+              "display_name": "Response 200",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_0224DXV424CX90Uw7XQjKveyVHpjZI6uom2",
+                "name": "JSONPath Query",
+                "title": "Parse Access Token",
+                "type": "corejava.jsonpathquery",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "continue_on_failure": false,
+                  "display_name": "Parse Access Token",
+                  "input_json": "$activity.definition_activity_0224DQOXN7NZ32ttP3CbZspXC3TAtCGkf64.output.response_body$",
+                  "jsonpath_queries": [
+                    {
+                      "jsonpath_query": "$.access_token",
+                      "jsonpath_query_name": "access_token",
+                      "jsonpath_query_type": "string",
+                      "zdate_type_format": "yyyy-MM-dd'T'HH:mm:ssZ"
+                    }
+                  ],
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_0224DPJPWCAMM0PSkmVKu2HP3UrI8IVGo9P",
+                "name": "Set Variables",
+                "title": "Set Access Token",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Set Access Token",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_0224B6S39JIWO6q01ISePDCXP9hSvOT54xS.output.variable_workflow_0224DPUSWAD304Rw0R06XYWyaYtcJ6afHNE$",
+                      "variable_value_new": "$activity.definition_activity_0224DXV424CX90Uw7XQjKveyVHpjZI6uom2.output.jsonpath_queries.access_token$"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          },
+          {
+            "unique_name": "definition_activity_023A817MPDH7Y4Vwd6SFJyvHslhc30MaObY",
+            "name": "Condition Branch",
+            "title": "Response not ! 200",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_0224DQOXN7NZ32ttP3CbZspXC3TAtCGkf64.output.error.code$",
+                "operator": "eq",
+                "right_operand": "200"
+              },
+              "continue_on_failure": false,
+              "display_name": "Response not ! 200",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_023A83D1MJZC800y9TeRvWwDxZhwpLZ6wWp",
+                "name": "Send Email",
+                "title": "Send Email",
+                "type": "email.smtp_send_email",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "body": "Attempted to fetch access token at $activity.definition_activity_0224DQOXN7NZ32ttP3CbZspXC3TAtCGkf64.output.start_time$\nBut received $activity.definition_activity_0224DQOXN7NZ32ttP3CbZspXC3TAtCGkf64.output.status_code$",
+                  "continue_if_one_address_valid": false,
+                  "continue_on_failure": true,
+                  "display_name": "Send Email",
+                  "runtime_user": {
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "subject": "Access Token Could not be Generated",
+                  "target": {
+                    "override_workflow_target": true,
+                    "target_id": "definition_target_023978MTWUDO33KIql6bIGZKbaKkSpOb86H"
+                  },
+                  "to": "madewang@cisco.com"
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_023A82PVIH27N0dsPrp2JkhB1Sr8IQpLIew",
+                "name": "Completed",
+                "title": "Access Token Not Found",
+                "type": "logic.completed",
+                "base_type": "activity",
+                "properties": {
+                  "completion_type": "failed-completed",
+                  "continue_on_failure": false,
+                  "display_name": "Access Token Not Found",
+                  "result_message": "No Access Token",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_0224C6N2NIKMY4zWdgMYsjai97Jp7vuBY9O",
+        "name": "HTTP Request",
+        "title": "API Request to Umbrella Reporting API",
+        "type": "web-service.http_request",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "allow_auto_redirect": true,
+          "allow_headers_redirect": true,
+          "content_type": "application/json",
+          "continue_on_error_status_code": true,
+          "continue_on_failure": true,
+          "custom_headers": [
+            {
+              "name": "Authorization",
+              "value": "$workflow.definition_workflow_0224B6S39JIWO6q01ISePDCXP9hSvOT54xS.output.variable_workflow_0224DPUSWAD304Rw0R06XYWyaYtcJ6afHNE$"
+            }
+          ],
+          "display_name": "API Request to Umbrella Reporting API",
+          "method": "GET",
+          "relative_url": "/reports/v2/activity?from=$workflow.definition_workflow_0224B6S39JIWO6q01ISePDCXP9hSvOT54xS.input.variable_workflow_0224C5UOFN1HK5lbSBnwYMXkQZxQUTDjMRb$&to=$workflow.definition_workflow_0224B6S39JIWO6q01ISePDCXP9hSvOT54xS.input.variable_workflow_0224C60WOMUYR4QolvA1mju855pbY9AZlpH$&limit=$workflow.definition_workflow_0224B6S39JIWO6q01ISePDCXP9hSvOT54xS.input.variable_workflow_0224C66LTXUAC1qskei0SfVuPXFmofVHkPa$",
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_0222PMSZJHSXL2DrLcZAKjeTrwSCbpW9U3Z"
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_0224D05H7FX9S5ICih251HcTbZkfc6ViHUt",
+        "name": "Condition Block",
+        "title": "Check for Status code",
+        "type": "logic.if_else",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Check for Status code",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_0224D05HHLHZ80sYuU1ZTBolJqLhVPwFcWM",
+            "name": "Condition Branch",
+            "title": "Response is 200",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_0224C6N2NIKMY4zWdgMYsjai97Jp7vuBY9O.output.status_code$",
+                "operator": "eq",
+                "right_operand": 200
+              },
+              "continue_on_failure": false,
+              "display_name": "Response is 200",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_0239G60UM6VDE2QUAregT854NTdKDXoQQ8Y",
+                "name": "Execute Python Script",
+                "title": "Process the JSON Output",
+                "type": "python3.script",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "continue_on_failure": false,
+                  "display_name": "Process the JSON Output",
+                  "script": "import sys, json, base64, email.utils, hmac, hashlib, urllib, codecs\nfrom email.mime.text import MIMEText\nfrom email.mime.base import MIMEBase\n\n(response) = sys.argv[1:]\nevents = []\nresp = json.loads(response[0])\n\n\nfor event in resp[\"data\"]:\n  if event[\"verdict\"]==\"blocked\":\n      events.append(event)\n\n\n\n\n#####################################################\nmail_body = \"\"\"\n            <html>\n                <body>\n                    <h2>Blocked Security Event</h2>\n                    {table}\n                   \n                </body>\n            </html>\n        \"\"\"\n\n##### Code block to create the tablular view#########\nhtml = \"<table><tr><th>Date</th><th>External IP</th><th>Internal IP</th><th>URL</th><th>AMP</th><th>Policy Category</th><th>type</th><th>Category</th></tr>\"\ncode = \"\"\nfor event in events:\n\n  try:\n    code += \"<tr><td>{}</td>\".format(event[\"date\"])\n  except:\n    code += \"<tr><td>{}</td>\".format(\"\")\n  try:\n    code += \"<td>{}</td>\".format(event[\"externalip\"])\n  except:\n   code += \"<td>{}</td>\".format(\"\")\n  try:\n    code += \"<td>{}</td>\".format(event[\"internalip\"])\n  except:\n    code += \"<td>{}</td>\".format(\"\")\n  try:\n    code += \"<td>{}</td>\".format(event[\"url\"].replace(\".\",\"_\"))\n  except:\n    code += \"<td>{}</td>\".format(\"\")\n  try:\n    code += \"<td>{}</td>\".format(event[\"amp\"])\n  except:\n    code += \"<td>{}</td>\".format(\"\")\n  try:\n    code += \"<td>{}</td>\".format(event[\"policycategories\"])\n  except:\n    code += \"<td>{}</td>\".format(\"\")\n  try:\n    code += \"<td>{}</td>\".format(event[\"type\"])\n  except:\n    code += \"<td>{}</td>\".format(\"\")\n  try:\n    code += \"<td>{}</td>\".format(event[\"categories\"])\n  except:\n    code += \"<td>{}</td>\".format(\"\")\n  code+=\"</tr>\"\n\nhtml+=code+\"</table>\"\n  \nmail_body = mail_body.format(\n            table=code,\n            \n        )\n#####################################################\n\n\n\n",
+                  "script_arguments": [
+                    "$activity.definition_activity_0224C6N2NIKMY4zWdgMYsjai97Jp7vuBY9O.output.response_body$"
+                  ],
+                  "script_queries": [
+                    {
+                      "script_query": "html",
+                      "script_query_name": "html",
+                      "script_query_type": "string"
+                    }
+                  ],
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_023A7C6F3CZ6M31MATHV7Yq0v8avVvM3M9z",
+                "name": "Send Email",
+                "title": "Send Email",
+                "type": "email.smtp_send_email",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "body": "<html>\n<head>\n<style>\ntable, td, th {  \n  border: 1px solid #ddd;\n  text-align: left;\n}\n\ntable {\n  border-collapse: collapse;\n  width: 100%;\n}\n\nth, td {\n  padding: 15px;\n}\n</style>\n</head>\n<body>\n<div>\n<h2> Blocked Security Events</h2>\n$activity.definition_activity_0239G60UM6VDE2QUAregT854NTdKDXoQQ8Y.output.script_queries.html$\n</div>\n<body>\n</html>",
+                  "continue_if_one_address_valid": true,
+                  "continue_on_failure": true,
+                  "display_name": "Send Email",
+                  "html": true,
+                  "runtime_user": {
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "subject": "[HBL] Alert for Security Event Block",
+                  "target": {
+                    "override_workflow_target": true,
+                    "target_id": "definition_target_023978MTWUDO33KIql6bIGZKbaKkSpOb86H"
+                  },
+                  "to": "madewang@cisco.com"
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_023B3WOP810IO2YTOZPeYfiwNr8NjRAsXae",
+                "name": "Completed",
+                "title": "Completed",
+                "type": "logic.completed",
+                "base_type": "activity",
+                "properties": {
+                  "completion_type": "succeeded",
+                  "continue_on_failure": false,
+                  "display_name": "Completed",
+                  "result_message": "Successfully sent mail",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          },
+          {
+            "unique_name": "definition_activity_0224D05HMR6AV3zeu7oSOsnJuHCe8GNrOA6",
+            "name": "Condition Branch",
+            "title": "Response code is not 200",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_0224C6N2NIKMY4zWdgMYsjai97Jp7vuBY9O.output.error.code$",
+                "operator": "eq",
+                "right_operand": "200"
+              },
+              "continue_on_failure": false,
+              "display_name": "Response code is not 200",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_023A257LTYVGO4n2nPqayxtx511D0qpMbjG",
+                "name": "Send Email",
+                "title": "Send Email",
+                "type": "email.smtp_send_email",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "body": "API Request to Umbrella Reporting API was not successful and received $activity.definition_activity_0224C6N2NIKMY4zWdgMYsjai97Jp7vuBY9O.output.status_code$ from at $activity.definition_activity_0224C6N2NIKMY4zWdgMYsjai97Jp7vuBY9O.output.start_time$  $activity.definition_activity_0224C6N2NIKMY4zWdgMYsjai97Jp7vuBY9O.output.end_time$",
+                  "continue_if_one_address_valid": true,
+                  "continue_on_failure": true,
+                  "display_name": "Send Email",
+                  "html": true,
+                  "runtime_user": {
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "subject": "Alert for Security Event Block",
+                  "target": {
+                    "override_workflow_target": true,
+                    "target_id": "definition_target_023978MTWUDO33KIql6bIGZKbaKkSpOb86H"
+                  },
+                  "to": "madewang@cisco.com"
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_0224D1UA32EXD5qPieL7WoYNyvCyvfOcf5W",
+                "name": "Completed",
+                "title": "Response is unscuccessful",
+                "type": "logic.completed",
+                "base_type": "activity",
+                "properties": {
+                  "completion_type": "failed-completed",
+                  "continue_on_failure": false,
+                  "display_name": "Response is unscuccessful",
+                  "result_message": "HTTP Request status !=200",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "categories": [
+      "category_01EI33LMFFL7N5eTQLsOOJIrxdlSOHb7r3r"
+    ]
+  },
+  "categories": {
+    "category_01EI33LMFFL7N5eTQLsOOJIrxdlSOHb7r3r": {
+      "unique_name": "category_01EI33LMFFL7N5eTQLsOOJIrxdlSOHb7r3r",
+      "name": "SecureX",
+      "title": "SecureX",
+      "type": "basic.category",
+      "base_type": "category",
+      "category_type": "custom",
+      "object_type": "category"
+    }
+  },
+  "triggers": {
+    "triggerschedule_023A8DW0YV56Q0QtXykNPyEhbc3GCjIzlYZ": {
+      "workflow_id": "definition_workflow_0224B6S39JIWO6q01ISePDCXP9hSvOT54xS",
+      "name": "Daily",
+      "title": "",
+      "lowercase_name": "schedule.daily",
+      "type": "schedule",
+      "base_type": "trigger",
+      "ref_id": "schedule_023A8CECJUDJF1OMrELfoUJGuinJOrzkka1",
+      "version": "1.0.0",
+      "disabled": false,
+      "unique_name": "triggerschedule_023A8DW0YV56Q0QtXykNPyEhbc3GCjIzlYZ",
+      "object_type": "triggerschedule"
+    }
+  },
+  "schedules": {
+    "schedule_023A8CECJUDJF1OMrELfoUJGuinJOrzkka1": {
+      "unique_name": "schedule_023A8CECJUDJF1OMrELfoUJGuinJOrzkka1",
+      "name": "Daily_Execute",
+      "type": "basic.schedule",
+      "base_type": "schedule",
+      "properties": {
+        "calendar": "calendar_recurring_1BMfMWvgiDhSjBQ7hTSyvz3NyVZ",
+        "timezone": "Asia/Yekaterinburg",
+        "starttime": "17:45",
+        "interval_hours": 2,
+        "interval_minutes": 0,
+        "number_of_times": 3,
+        "display_name": "Daily_Execute",
+        "description": ""
+      },
+      "version": "1.0.0",
+      "object_type": "schedule"
+    }
+  },
+  "targets": {
+    "definition_target_0222PMSZJHSXL2DrLcZAKjeTrwSCbpW9U3Z": {
+      "unique_name": "definition_target_0222PMSZJHSXL2DrLcZAKjeTrwSCbpW9U3Z",
+      "name": "umbrella_madewang",
+      "title": "umbrella_madewang",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "description": "https://api.umbrella.com",
+        "disable_certificate_validation": true,
+        "display_name": "umbrella_madewang",
+        "host": "api.umbrella.com",
+        "ignore_proxy": true,
+        "no_runtime_user": true,
+        "protocol": "https"
+      }
+    },
+    "definition_target_023978MTWUDO33KIql6bIGZKbaKkSpOb86H": {
+      "unique_name": "definition_target_023978MTWUDO33KIql6bIGZKbaKkSpOb86H",
+      "name": "madewang_Google",
+      "title": "madewang_Google",
+      "type": "email.smtp_endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "default_runtime_user_id": "definition_runtime_user_023A1R2NPG1X73ViVpmRKioIhvsVV1NvoMo",
+        "display_name": "madewang_Google",
+        "no_runtime_user": false,
+        "port": 465,
+        "protocol": "SMTP",
+        "server": "smtp.gmail.com"
+      }
+    }
+  },
+  "runtime_users": {
+    "definition_runtime_user_0239BJ6TG1QS80O4hSgOc0m4h7mOKOwZ50y": {
+      "unique_name": "definition_runtime_user_0239BJ6TG1QS80O4hSgOc0m4h7mOKOwZ50y",
+      "name": "Umbrella_DeveNet_Sandbox",
+      "title": "Umbrella_DeveNet_Sandbox",
+      "type": "runtime_user.web-service_basic_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "auth_option": "Basic",
+        "basic_password": "*****",
+        "basic_username": "52563165e80243f08f804ed36ac05dc5",
+        "display_name": "Umbrella_DeveNet_Sandbox"
+      }
+    },
+    "definition_runtime_user_023A1R2NPG1X73ViVpmRKioIhvsVV1NvoMo": {
+      "unique_name": "definition_runtime_user_023A1R2NPG1X73ViVpmRKioIhvsVV1NvoMo",
+      "name": "madewnang_gmail",
+      "title": "madewnang_gmail",
+      "type": "runtime_user.email_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "display_name": "madewnang_gmail",
+        "password": "*****",
+        "sender": "xfactor1507@gmail.com"
+      }
+    }
+  }
+}
