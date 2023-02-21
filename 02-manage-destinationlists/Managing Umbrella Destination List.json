@@ -1,0 +1,597 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_023F695JKCUZQ5uaqspWE9bfXiajDff6Onn",
+    "name": "Managing Umbrella Destination List",
+    "title": "Managing Umbrella Destination List",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "0koryu0.easter.ne.jp",
+          "scope": "input",
+          "name": "domain_name",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_023KAMU0CS6BH2hjrJjmJk0m6qBGopqtv8h",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 40,
+          "scope": "input",
+          "name": "Risk_Score_Threshold",
+          "type": "datatype.integer",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_023KFT97R88TS0ODxyiUQgkxlHJqtIFK7eG",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 0,
+          "scope": "output",
+          "name": "Risk_SCore",
+          "type": "datatype.integer",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_023KFOEJZ2DRT13Vos5zT2IDT2dxBgXE1LO",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "Destination_List_ID",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_023NQ4V2KPZYU1hV4fyhBSGbth7idgp1ZGZ",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 0,
+          "scope": "output",
+          "name": "Umbrella_Block_Status",
+          "type": "datatype.integer",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_023KFPBXAYXKB1KbunJqlNapAwFcSyqIFXG",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "Acces_Token",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_023NQ23KFVNZA2VlKMEx7qYkt8bJO5PQ7Xw",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "4851844",
+          "scope": "input",
+          "name": "org_id",
+          "type": "datatype.string",
+          "is_required": true,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_023R2WS7N7IFX28vZKvst1tLRW91wHMa3K5",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "is_atomic": false
+      },
+      "delete_workflow_instance": false,
+      "display_name": "Managing Umbrella Destination List",
+      "runtime_user": {
+        "target_default": true
+      },
+      "target": {
+        "no_target": true
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_023KAIWMON12L2JgbV7aqJRDDGDXFn6qgim",
+        "name": "HTTP Request",
+        "title": "Query Domain to Investigate API",
+        "type": "web-service.http_request",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "allow_auto_redirect": true,
+          "allow_headers_redirect": false,
+          "content_type": "application/json",
+          "continue_on_error_status_code": false,
+          "continue_on_failure": false,
+          "custom_headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer b4030436-6198-4765-accd-063378549f1f"
+            }
+          ],
+          "display_name": "Query Domain to Investigate API",
+          "method": "GET",
+          "relative_url": "/domains/risk-score/$workflow.definition_workflow_023F695JKCUZQ5uaqspWE9bfXiajDff6Onn.input.variable_workflow_023KAMU0CS6BH2hjrJjmJk0m6qBGopqtv8h$",
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_023KAKM91PMJX5EXAsPjl5jaVcXCNGHZaGN"
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_023KF41KZZ1S345ERkrrNAz2lyQdtAMY6x4",
+        "name": "Condition Block",
+        "title": "Investigate API executes Successfully",
+        "type": "logic.if_else",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Investigate API executes Successfully",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_023KF41LIEVKI6QZHFrd3LWtennkeuVIpWu",
+            "name": "Condition Branch",
+            "title": "Investigate API is Success",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_023KAIWMON12L2JgbV7aqJRDDGDXFn6qgim.output.status_code$",
+                "operator": "eq",
+                "right_operand": 200
+              },
+              "continue_on_failure": false,
+              "display_name": "Investigate API is Success",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_023KF35EAKRXN26lnZDhyU8L06PhpANCm8i",
+                "name": "JSONPath Query",
+                "title": "JSONPath Query",
+                "type": "corejava.jsonpathquery",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "continue_on_failure": false,
+                  "display_name": "JSONPath Query",
+                  "input_json": "$activity.definition_activity_023KAIWMON12L2JgbV7aqJRDDGDXFn6qgim.output.response_body$",
+                  "jsonpath_queries": [
+                    {
+                      "jsonpath_query": "$.indicators[8].normalized_score",
+                      "jsonpath_query_name": "Umbrella_Block_Status",
+                      "jsonpath_query_type": "integer"
+                    },
+                    {
+                      "jsonpath_query": "$.risk_score",
+                      "jsonpath_query_name": "Risk_Score",
+                      "jsonpath_query_type": "integer"
+                    }
+                  ],
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_023KFDEWNEF791MRbBru8UZDxukLBXwUQHJ",
+                "name": "Set Variables",
+                "title": "Set Umbrella Status and Risk Score Recieved from API",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Set Umbrella Status and Risk Score Recieved from API",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_023F695JKCUZQ5uaqspWE9bfXiajDff6Onn.output.variable_workflow_023KFPBXAYXKB1KbunJqlNapAwFcSyqIFXG$",
+                      "variable_value_new": "$activity.definition_activity_023KF35EAKRXN26lnZDhyU8L06PhpANCm8i.output.jsonpath_queries.Umbrella_Block_Status$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_023F695JKCUZQ5uaqspWE9bfXiajDff6Onn.output.variable_workflow_023KFOEJZ2DRT13Vos5zT2IDT2dxBgXE1LO$",
+                      "variable_value_new": "$activity.definition_activity_023KF35EAKRXN26lnZDhyU8L06PhpANCm8i.output.jsonpath_queries.Risk_Score$"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_023KFFCSA8CT147sGQD36RMFPsz6PYn2EeI",
+                "name": "Condition Block",
+                "title": "Conditions for adding the domain name to Destination List",
+                "type": "logic.if_else",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Conditions for adding the domain name to Destination List",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "blocks": [
+                  {
+                    "unique_name": "definition_activity_023KFFCSGJ0OB2LmHmm9FzOosUh9hMYfnmo",
+                    "name": "Condition Branch",
+                    "title": "If RISK Score is > 40",
+                    "type": "logic.condition_block",
+                    "base_type": "activity",
+                    "properties": {
+                      "condition": {
+                        "left_operand": {
+                          "left_operand": "$workflow.definition_workflow_023F695JKCUZQ5uaqspWE9bfXiajDff6Onn.output.variable_workflow_023KFOEJZ2DRT13Vos5zT2IDT2dxBgXE1LO$",
+                          "operator": "gte",
+                          "right_operand": "$workflow.definition_workflow_023F695JKCUZQ5uaqspWE9bfXiajDff6Onn.input.variable_workflow_023KFT97R88TS0ODxyiUQgkxlHJqtIFK7eG$"
+                        },
+                        "operator": "and",
+                        "right_operand": {
+                          "left_operand": "$workflow.definition_workflow_023F695JKCUZQ5uaqspWE9bfXiajDff6Onn.output.variable_workflow_023KFPBXAYXKB1KbunJqlNapAwFcSyqIFXG$",
+                          "operator": "gte",
+                          "right_operand": 80
+                        }
+                      },
+                      "continue_on_failure": false,
+                      "display_name": "If RISK Score is > 40",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "actions": [
+                      {
+                        "unique_name": "definition_activity_023KFH1O1XU127SsdWbguWAHtQEDcbns3OT",
+                        "name": "HTTP Request",
+                        "title": "Generate Access Token for Enforcement API",
+                        "type": "web-service.http_request",
+                        "base_type": "activity",
+                        "properties": {
+                          "action_timeout": 180,
+                          "allow_auto_redirect": true,
+                          "allow_headers_redirect": true,
+                          "content_type": "application/json",
+                          "continue_on_error_status_code": false,
+                          "continue_on_failure": false,
+                          "display_name": "Generate Access Token for Enforcement API",
+                          "method": "POST",
+                          "relative_url": "/auth/v2/token",
+                          "runtime_user": {
+                            "override_target_runtime_user": true,
+                            "runtime_user_id": "definition_runtime_user_023NPOIHGTJQO0jw4kfmXFIKPrEfKeY8c5n"
+                          },
+                          "skip_execution": false,
+                          "target": {
+                            "override_workflow_target": true,
+                            "target_id": "definition_target_023NPQFOBUF332EMM6sAptM28gjBdjywZ3u"
+                          }
+                        },
+                        "object_type": "definition_activity"
+                      },
+                      {
+                        "unique_name": "definition_activity_023NQ0SGBVIZK6HDEz4XGe86hLXVQU5enLz",
+                        "name": "Condition Block",
+                        "title": "Condition Block",
+                        "type": "logic.if_else",
+                        "base_type": "activity",
+                        "properties": {
+                          "continue_on_failure": false,
+                          "display_name": "Condition Block",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "blocks": [
+                          {
+                            "unique_name": "definition_activity_023NQ0SGLPFC45Xg3XAlk10iQlhkeZwAiEp",
+                            "name": "Condition Branch",
+                            "title": "Successful to fetch Acess Token",
+                            "type": "logic.condition_block",
+                            "base_type": "activity",
+                            "properties": {
+                              "condition": {
+                                "left_operand": "$activity.definition_activity_023KFH1O1XU127SsdWbguWAHtQEDcbns3OT.output.status_code$",
+                                "operator": "eq",
+                                "right_operand": 200
+                              },
+                              "continue_on_failure": false,
+                              "display_name": "Successful to fetch Acess Token",
+                              "skip_execution": false
+                            },
+                            "object_type": "definition_activity",
+                            "actions": [
+                              {
+                                "unique_name": "definition_activity_023NPZ4L48YCA0akKVnUW3lm4spp5Ku9bhC",
+                                "name": "JSONPath Query",
+                                "title": "Parse Access Token",
+                                "type": "corejava.jsonpathquery",
+                                "base_type": "activity",
+                                "properties": {
+                                  "action_timeout": 180,
+                                  "continue_on_failure": false,
+                                  "display_name": "Parse Access Token",
+                                  "input_json": "$activity.definition_activity_023KFH1O1XU127SsdWbguWAHtQEDcbns3OT.output.response_body$",
+                                  "jsonpath_queries": [
+                                    {
+                                      "jsonpath_query": "$.access_token",
+                                      "jsonpath_query_name": "access_token",
+                                      "jsonpath_query_type": "string",
+                                      "zdate_type_format": "yyyy-MM-dd'T'HH:mm:ssZ"
+                                    }
+                                  ],
+                                  "skip_execution": false
+                                },
+                                "object_type": "definition_activity"
+                              },
+                              {
+                                "unique_name": "definition_activity_023NQ1T3CPLFD5qajYoLr29oqqls00Wisad",
+                                "name": "Set Variables",
+                                "title": "Set Variables",
+                                "type": "core.set_multiple_variables",
+                                "base_type": "activity",
+                                "properties": {
+                                  "continue_on_failure": false,
+                                  "display_name": "Set Variables",
+                                  "skip_execution": false,
+                                  "variables_to_update": [
+                                    {
+                                      "variable_to_update": "$workflow.definition_workflow_023F695JKCUZQ5uaqspWE9bfXiajDff6Onn.output.variable_workflow_023NQ23KFVNZA2VlKMEx7qYkt8bJO5PQ7Xw$",
+                                      "variable_value_new": "$activity.definition_activity_023NPZ4L48YCA0akKVnUW3lm4spp5Ku9bhC.output.jsonpath_queries.access_token$"
+                                    }
+                                  ]
+                                },
+                                "object_type": "definition_activity"
+                              }
+                            ]
+                          },
+                          {
+                            "unique_name": "definition_activity_023NQ0SGUGPQT2WKkofeVOt4n3pHoQXq8Rq",
+                            "name": "Condition Branch",
+                            "title": "Access Token not Found",
+                            "type": "logic.condition_block",
+                            "base_type": "activity",
+                            "properties": {
+                              "condition": {
+                                "left_operand": "$activity.definition_activity_023KFH1O1XU127SsdWbguWAHtQEDcbns3OT.output.status_code$",
+                                "operator": "ne",
+                                "right_operand": 200
+                              },
+                              "continue_on_failure": false,
+                              "display_name": "Access Token not Found",
+                              "skip_execution": false
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      },
+                      {
+                        "unique_name": "definition_activity_023NXTJUSALVK5Q4cuPBbTfC165xNtojfrm",
+                        "name": "HTTP Request",
+                        "title": "HTTP Request",
+                        "type": "web-service.http_request",
+                        "base_type": "activity",
+                        "properties": {
+                          "action_timeout": 180,
+                          "allow_auto_redirect": true,
+                          "allow_headers_redirect": true,
+                          "body": "{\n    \"access\": \"block\",\n    \"isGlobal\": false,\n    \"name\": \"a test destination list\",\n    \"destinations\": [\n        {\n            \"destination\": \"$workflow.definition_workflow_023F695JKCUZQ5uaqspWE9bfXiajDff6Onn.input.variable_workflow_023KAMU0CS6BH2hjrJjmJk0m6qBGopqtv8h$\",\n            \"type\": \"DOMAIN\",\n            \"comment\": \"test domain, wikipedia.com\"\n        }\n        \n    ]\n}",
+                          "content_type": "application/json",
+                          "continue_on_error_status_code": false,
+                          "continue_on_failure": false,
+                          "display_name": "HTTP Request",
+                          "method": "POST",
+                          "relative_url": "/v1/organizations/$workflow.definition_workflow_023F695JKCUZQ5uaqspWE9bfXiajDff6Onn.input.variable_workflow_023R2WS7N7IFX28vZKvst1tLRW91wHMa3K5$/destinationlists",
+                          "runtime_user": {
+                            "override_target_runtime_user": true,
+                            "runtime_user_id": "definition_runtime_user_023R30G3FDUUT71zWFbWUK7q0XuTHZ3CU0w"
+                          },
+                          "skip_execution": false,
+                          "target": {
+                            "override_workflow_target": true,
+                            "target_id": "definition_target_023R30UWMHA013aS8n8m12pWwDyJJ8IyjWU"
+                          }
+                        },
+                        "object_type": "definition_activity"
+                      }
+                    ]
+                  },
+                  {
+                    "unique_name": "definition_activity_023KFFCSP1AR617BGEoRdFA6aBfmGbfwoAz",
+                    "name": "Condition Branch",
+                    "title": "Condition Branch",
+                    "type": "logic.condition_block",
+                    "base_type": "activity",
+                    "properties": {
+                      "condition": {
+                        "left_operand": "$workflow.definition_workflow_023F695JKCUZQ5uaqspWE9bfXiajDff6Onn.output.variable_workflow_023KFOEJZ2DRT13Vos5zT2IDT2dxBgXE1LO$",
+                        "operator": "lt",
+                        "right_operand": "$workflow.definition_workflow_023F695JKCUZQ5uaqspWE9bfXiajDff6Onn.input.variable_workflow_023KFT97R88TS0ODxyiUQgkxlHJqtIFK7eG$"
+                      },
+                      "continue_on_failure": false,
+                      "display_name": "Condition Branch",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "actions": [
+                      {
+                        "unique_name": "definition_activity_023KFRSS6IK277MRTsJH1CmaeowLej6kQJB",
+                        "name": "Completed",
+                        "title": "Conditions Not Matching",
+                        "type": "logic.completed",
+                        "base_type": "activity",
+                        "properties": {
+                          "completion_type": "failed-completed",
+                          "continue_on_failure": false,
+                          "display_name": "Conditions Not Matching",
+                          "result_message": "Conditions not matching",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "unique_name": "definition_activity_023KF41LVCRYN39f8VO8s3d4lo5m0PVLkcl",
+            "name": "Condition Branch",
+            "title": "Condition Branch",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_023KAIWMON12L2JgbV7aqJRDDGDXFn6qgim.output.error.code$",
+                "operator": "eq",
+                "right_operand": "200"
+              },
+              "continue_on_failure": false,
+              "display_name": "Condition Branch",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_023KFEJZBJI9J4TmhOkhwdLe8URx52Rc4CX",
+                "name": "Completed",
+                "title": "API is not successfully Executed",
+                "type": "logic.completed",
+                "base_type": "activity",
+                "properties": {
+                  "completion_type": "failed-completed",
+                  "continue_on_failure": false,
+                  "display_name": "API is not successfully Executed",
+                  "result_message": "Investigate API  for $workflow.definition_workflow_023F695JKCUZQ5uaqspWE9bfXiajDff6Onn.input.variable_workflow_023KAMU0CS6BH2hjrJjmJk0m6qBGopqtv8h$ returned $activity.definition_activity_023KAIWMON12L2JgbV7aqJRDDGDXFn6qgim.output.status_code$",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "categories": [
+      "category_01EI33LMFFL7N5eTQLsOOJIrxdlSOHb7r3r"
+    ]
+  },
+  "categories": {
+    "category_01EI33LMFFL7N5eTQLsOOJIrxdlSOHb7r3r": {
+      "unique_name": "category_01EI33LMFFL7N5eTQLsOOJIrxdlSOHb7r3r",
+      "name": "SecureX",
+      "title": "SecureX",
+      "type": "basic.category",
+      "base_type": "category",
+      "category_type": "custom",
+      "object_type": "category"
+    }
+  },
+  "targets": {
+    "definition_target_023KAKM91PMJX5EXAsPjl5jaVcXCNGHZaGN": {
+      "unique_name": "definition_target_023KAKM91PMJX5EXAsPjl5jaVcXCNGHZaGN",
+      "name": "madewang_investigate",
+      "title": "madewang_investigate",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "disable_certificate_validation": true,
+        "display_name": "madewang_investigate",
+        "host": "investigate.api.umbrella.com",
+        "ignore_proxy": true,
+        "no_runtime_user": true,
+        "protocol": "https"
+      }
+    },
+    "definition_target_023NPQFOBUF332EMM6sAptM28gjBdjywZ3u": {
+      "unique_name": "definition_target_023NPQFOBUF332EMM6sAptM28gjBdjywZ3u",
+      "name": "umbrella_admin_api",
+      "title": "umbrella_admin_api",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "default_runtime_user_id": "definition_runtime_user_023NPOIHGTJQO0jw4kfmXFIKPrEfKeY8c5n",
+        "disable_certificate_validation": true,
+        "display_name": "umbrella_admin_api",
+        "host": "api.umbrella.com",
+        "ignore_proxy": true,
+        "no_runtime_user": false,
+        "protocol": "https"
+      }
+    },
+    "definition_target_023R30UWMHA013aS8n8m12pWwDyJJ8IyjWU": {
+      "unique_name": "definition_target_023R30UWMHA013aS8n8m12pWwDyJJ8IyjWU",
+      "name": "legacy_umbrella",
+      "title": "legacy_umbrella",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "default_runtime_user_id": "definition_runtime_user_023R30G3FDUUT71zWFbWUK7q0XuTHZ3CU0w",
+        "disable_certificate_validation": true,
+        "display_name": "legacy_umbrella",
+        "host": "management.api.umbrella.com",
+        "ignore_proxy": true,
+        "no_runtime_user": false,
+        "protocol": "https"
+      }
+    }
+  },
+  "runtime_users": {
+    "definition_runtime_user_023NPOIHGTJQO0jw4kfmXFIKPrEfKeY8c5n": {
+      "unique_name": "definition_runtime_user_023NPOIHGTJQO0jw4kfmXFIKPrEfKeY8c5n",
+      "name": "madewang_umbrella_admin",
+      "title": "madewang_umbrella_admin",
+      "type": "runtime_user.web-service_basic_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "auth_option": "Basic",
+        "basic_password": "*****",
+        "basic_username": "798e06bfb8e244e79ff68d31627b2e66",
+        "display_name": "madewang_umbrella_admin"
+      }
+    },
+    "definition_runtime_user_023R30G3FDUUT71zWFbWUK7q0XuTHZ3CU0w": {
+      "unique_name": "definition_runtime_user_023R30G3FDUUT71zWFbWUK7q0XuTHZ3CU0w",
+      "name": "legacy_umbrella_creds",
+      "title": "legacy_umbrella_creds",
+      "type": "runtime_user.web-service_basic_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "auth_option": "Basic",
+        "basic_password": "*****",
+        "basic_username": "4c7f0ee09f134c97aee1ca08fcb7c3a1",
+        "display_name": "legacy_umbrella_creds"
+      }
+    }
+  }
+}
